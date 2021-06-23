@@ -1,9 +1,20 @@
 const http = require('http');
 const fs = require('fs');
+const _ = require('lodash');
 
 
 const server = http.createServer((req, res) => {
-    console.log(req.url, req.method);
+
+    //lodash
+    const num = _.random(0, 20);
+    console.log(num);
+
+    const greet = _.once(() => {
+        console.log('hello');
+    })
+
+    greet();
+    //console.log(req.url, req.method);
 
     //heder
     // res.setHeader('Content-Type', 'text/plsin');
@@ -18,15 +29,18 @@ const server = http.createServer((req, res) => {
             path += 'index.html';
             res.statusCode = 200;
             break;
+
         case '/about':
             path += 'about.html';
             res.statusCode = 200;
             break;
+
         case '/about-me':
             res.statusCode = 301;
-            res.setHeader('Location', '/about')
+            res.setHeader('Location', '/about');
             res.end();
             break;
+
         default:
             path += '404.html';
             res.statusCode = 404;
@@ -37,11 +51,8 @@ const server = http.createServer((req, res) => {
         if (err) {
             console.log(err);
             res.end();
-        } else {
-            res.end(data);
-        }
-
-        res.end(data);
+        } 
+        res.end();
 
     });
 
